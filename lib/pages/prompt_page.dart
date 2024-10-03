@@ -19,6 +19,7 @@ class _PromptPageState extends State<PromptPage> {
   var InputController = TextEditingController();
 
   List<ShortRecipeModel> recipesSuggestions = [];
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,27 +34,39 @@ class _PromptPageState extends State<PromptPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
-                controller: InputController,
-                autocorrect: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.local_grocery_store_outlined),
-                  hintText: "What do you have in your pantry?",
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                  ),
-                )),
+              controller: InputController,
+              autocorrect: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                icon: Icon(Icons.local_grocery_store_outlined),
+                hintText: "What do you have in your pantry?",
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade500,
+                ),
+              ),
+            ),
             SizedBox(height: 40),
-            getLoadingBar(),
-            FloatingActionButton.extended(
-                onPressed: () async {
-                  recipesSuggestions = await getRecipesSuggestions(
-                      context, InputController.text);
-                  setState(
-                      () {}); // Update the UI after fetching the suggestions
-                },
-                label: Text("Generate Recipes"),
-                icon: const Icon(Icons.auto_awesome))
+            //When function is running, show LoadingSpinner instead of button
+            isLoading
+                ? getLoadingSpinner()
+                : FloatingActionButton.extended(
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      recipesSuggestions = await getRecipesSuggestions(
+                              context, InputController.text)
+                          .then((result) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        return result;
+                      });
+                    },
+                    label: const Text("Generate Recipes"),
+                    icon: const Icon(Icons.auto_awesome),
+                  ),
           ],
         ),
       ),
@@ -61,17 +74,15 @@ class _PromptPageState extends State<PromptPage> {
   }
 }
 
-Widget getLoadingBar() {
+Widget getLoadingSpinner() {
   return new Container(
-      child: Center(
-          child: Row(
-    children: [
-      LoadingAnimationWidget.staggeredDotsWave(
+    child: Center(
+      child: LoadingAnimationWidget.staggeredDotsWave(
         color: Colors.black,
         size: 30,
-      )
-    ],
-  )));
+      ),
+    ),
+  );
 }
 
 Future<List<ShortRecipeModel>> getRecipesSuggestions(
