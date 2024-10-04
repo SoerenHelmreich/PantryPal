@@ -1,0 +1,20 @@
+
+name: Build Web
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - uses: erickzanardo/flutter-gh-pages@v7
+        with:
+          customArgs: --dart-define OpenAI_KEY=${{ secrets.OPENAI_API }} # Add this line
+          basehref: /flutter-github-page/

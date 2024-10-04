@@ -11,3 +11,8 @@ abstract class Env {
   @EnviedField(varName: 'BASEURL')
   static String BaseURL = _Env.BaseURL;
 }
+
+class EnvService {
+  static const String OpenAI_Key =
+      String.fromEnvironment("OPENAI_API", defaultValue: '');
+}

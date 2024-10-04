@@ -11,7 +11,7 @@ class ApiService {
   static Future<List<ModelsModel>> getModels() async {
     try {
       var response = await http.get(Uri.parse("${Env.BaseURL}/models"),
-          headers: {'Authorization': 'Bearer ${Env.OpenAIKey}'});
+          headers: {'Authorization': 'Bearer ${EnvService.OpenAI_Key}'});
 
       Map jsonResponse = jsonDecode(response.body);
 
@@ -42,7 +42,7 @@ class ApiService {
       var response = await http.post(
         Uri.parse("${Env.BaseURL}/chat/completions"),
         headers: {
-          'Authorization': 'Bearer ${Env.OpenAIKey}',
+          'Authorization': 'Bearer ${EnvService.OpenAI_Key}',
           'Content-Type': 'application/json'
         },
         body: jsonEncode(
