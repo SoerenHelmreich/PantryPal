@@ -1,8 +1,8 @@
 class NutriinfoModel {
-  final String calories;
-  final String fat;
-  final String carbohydrates;
-  final String protein;
+  final int calories;
+  final int fat;
+  final int carbohydrates;
+  final int protein;
 
   NutriinfoModel({
     required this.calories,

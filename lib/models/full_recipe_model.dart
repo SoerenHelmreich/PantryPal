@@ -1,15 +1,15 @@
-import 'package:cooking_companion/models/NutriInfo_model.dart';
+import 'package:cooking_companion/models/nutri_info_model.dart';
 
-class fullRecipeModel {
+class FullRecipeModel {
   final String title;
   final String description;
-  final int duration;
+  final String duration;
   final List<String> ingredients;
   final List<String> instructions;
   final NutriinfoModel NutritionalInfo;
   final List<String> tips;
 
-  fullRecipeModel({
+  FullRecipeModel({
     required this.title,
     required this.description,
     required this.duration,
@@ -19,8 +19,8 @@ class fullRecipeModel {
     required this.tips,
   });
 
-  factory fullRecipeModel.fromJson(Map<String, dynamic> json) {
-    return fullRecipeModel(
+  factory FullRecipeModel.fromJson(Map<String, dynamic> json) {
+    return FullRecipeModel(
       title: json['title'],
       description: json['description'],
       duration: json['duration'],

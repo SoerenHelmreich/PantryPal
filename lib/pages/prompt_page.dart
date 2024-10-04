@@ -49,23 +49,26 @@ class _PromptPageState extends State<PromptPage> {
             //When function is running, show LoadingSpinner instead of button
             isLoading
                 ? getLoadingSpinner()
-                : FloatingActionButton.extended(
-                    onPressed: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-
-                      recipesSuggestions = await getRecipesSuggestions(
-                              context, InputController.text)
-                          .then((result) {
+                : Center(
+                    child: FloatingActionButton.extended(
+                      elevation: 5,
+                      onPressed: () async {
                         setState(() {
-                          isLoading = false;
+                          isLoading = true;
                         });
-                        return result;
-                      });
-                    },
-                    label: const Text("Generate Recipes"),
-                    icon: const Icon(Icons.auto_awesome),
+
+                        recipesSuggestions = await getRecipesSuggestions(
+                                context, InputController.text)
+                            .then((result) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          return result;
+                        });
+                      },
+                      label: const Text("Generate Recipes"),
+                      icon: const Icon(Icons.auto_awesome),
+                    ),
                   ),
           ],
         ),

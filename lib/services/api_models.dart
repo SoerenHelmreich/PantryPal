@@ -36,6 +36,7 @@ class ApiService {
 
   static Future<CompletionModel> createCompletion({
     required PromptSettingsModel promptSetting,
+    int max_completion_tokens = 5000,
   }) async {
     try {
       var response = await http.post(
@@ -46,8 +47,8 @@ class ApiService {
         },
         body: jsonEncode(
           {
-            "model": "gpt-4o-mini",
-            "max_completion_tokens": 2048 * 4,
+            "model": "gpt-4o",
+            "max_completion_tokens": max_completion_tokens,
             "response_format": promptSetting.returnFormat,
             "messages": [
               {"role": "system", "content": promptSetting.systemPrompt},
