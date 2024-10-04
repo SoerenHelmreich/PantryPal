@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   static Future<List<ModelsModel>> getModels() async {
     try {
-      var response = await http.get(Uri.parse("${Env.BaseURL}/models"),
+      var response = await http.get(Uri.parse("${EnvService.BaseURL}/models"),
           headers: {'Authorization': 'Bearer ${EnvService.OpenAI_Key}'});
 
       Map jsonResponse = jsonDecode(response.body);
@@ -40,7 +40,7 @@ class ApiService {
   }) async {
     try {
       var response = await http.post(
-        Uri.parse("${Env.BaseURL}/chat/completions"),
+        Uri.parse("${EnvService.BaseURL}/chat/completions"),
         headers: {
           'Authorization': 'Bearer ${EnvService.OpenAI_Key}',
           'Content-Type': 'application/json'
