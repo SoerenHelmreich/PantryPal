@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cooking_companion/models/completion_model.dart';
 import 'package:cooking_companion/models/full_recipe_model.dart';
+import 'package:cooking_companion/models/ingredient_model.dart';
 import 'package:cooking_companion/models/nutri_info_model.dart';
 import 'package:cooking_companion/models/prompt_settings_model.dart';
 import 'package:cooking_companion/models/short_recipe_model.dart';
@@ -20,7 +21,7 @@ class RecipeOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipe Overview"),
+        title: const Text("Recipe Overview"),
       ),
       body: StaggeredGridView.countBuilder(
         crossAxisCount: 1, // Number of columns
@@ -72,8 +73,20 @@ Please keep dietary requirements in mind when they are stated in the description
           },
           "ingredients": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "List of ingredients required for the recipe."
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the ingredient"
+                },
+                "amount": {
+                  "type": "string",
+                  "description":
+                      "The amount of the ingredient. Prefer metric over imperial messurements"
+                }
+              }
+            },
           },
           "instructions": {
             "type": "array",
@@ -141,9 +154,9 @@ Please keep dietary requirements in mind when they are stated in the description
       title: recipe['title'],
       description: recipe['description'],
       duration: recipe["duration"],
-      ingredients: List<String>.from(recipe["ingredients"]),
+      ingredients: List.from(elements) Ingredient(name: recipe['ingredient']['name'],amount: recipe['ingredient']['amount']).toList()      
       instructions: List<String>.from(recipe["instructions"]),
-      NutritionalInfo: NutriinfoModel(
+      nutritionalInfo: NutriinfoModel(
         calories: recipe["NutritionalInfo"]["calories"],
         fat: recipe["NutritionalInfo"]["fat"],
         carbohydrates: recipe["NutritionalInfo"]["carbohydrates"],

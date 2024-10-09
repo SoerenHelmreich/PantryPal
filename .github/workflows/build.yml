@@ -4,6 +4,7 @@ name: Build Web
 on:
   push:
     branches: [ master ]
+  
 
 jobs:
   build:
@@ -16,5 +17,6 @@ jobs:
           channel: 'stable'
       - uses: erickzanardo/flutter-gh-pages@v7
         with:
-          customArgs: --dart-define OpenAI_KEY=${{ secrets.OPENAI_API }} # Add this line
+          customArgs: --dart-define OpenAI_KEY=${{ secrets.OPENAI_API }} 
           basehref: /flutter-github-page/
+  

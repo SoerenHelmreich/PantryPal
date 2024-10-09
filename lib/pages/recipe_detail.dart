@@ -1,5 +1,8 @@
 import 'package:cooking_companion/models/full_recipe_model.dart';
+import 'package:cooking_companion/models/ingredient_model.dart';
 import 'package:cooking_companion/models/short_recipe_model.dart';
+import 'package:cooking_companion/widgets/ingredient_card.dart';
+import 'package:cooking_companion/widgets/recipe_preview_card.dart';
 import 'package:flutter/material.dart';
 
 class RecipeDetail extends StatefulWidget {
@@ -19,27 +22,25 @@ class _RecipeDetailState extends State<RecipeDetail> {
       ),
       body: Column(
         children: [
-          Text(widget.fullRecipe.description),
-          Expanded(
-            child: ListView.builder(
-              itemCount: widget.fullRecipe.instructions.length,
+          ListView.builder(
+              itemCount: 5,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Text('${index + 1}'),
-                  ),
-                  title: Text(widget.fullRecipe.instructions[index]),
-                );
-              },
-            ),
-          )
+                return IngredientCard(
+                    ingredient: Ingredient(name: "Cheese", amount: "200 gr"));
+              }),
         ],
+
         //description: json['description'],
         //duration: json['duration'],
         //ingredients: List<String>.from(json['ingredients']),
         //instructions: List<String>.from(json['instructions']),
         //NutritionalInfo: NutriinfoModel.fromJson(json['NutritionalInfo']),
         //tips: List<String>.from(json['tips']),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text("Start cooking!"),
+        icon: Icon(Icons.restaurant_menu),
       ),
     );
   }
