@@ -1,7 +1,4 @@
 import 'package:cooking_companion/models/full_recipe_model.dart';
-import 'package:cooking_companion/models/nutri_info_model.dart';
-import 'package:cooking_companion/models/short_recipe_model.dart';
-import 'package:cooking_companion/pages/recipe_detail.dart';
 import 'package:flutter/material.dart';
 
 class RecipePreviewCard extends StatelessWidget {

@@ -16,9 +16,13 @@ class IngredientCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                ingredient.name,
-                style: TextStyle(fontSize: 20),
+              Flexible(
+                child: Text(
+                  ingredient.name,
+                  style: TextStyle(fontSize: 20),
+                  overflow: TextOverflow.visible,
+                  softWrap: true,
+                ),
               ),
               Text(
                 ingredient.amount,

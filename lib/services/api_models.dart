@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:cooking_companion/env/env.dart';
 import 'package:cooking_companion/models/completion_model.dart';
 import 'package:cooking_companion/models/models_model.dart';
-import 'package:cooking_companion/models/prompt_settings_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -35,7 +34,9 @@ class ApiService {
   }
 
   static Future<CompletionModel> createCompletion({
-    required PromptSettingsModel promptSetting,
+    required String systemPrompt,
+    required String userPrompt,
+    required Object returnFormat,
     int max_completion_tokens = 5000,
   }) async {
     try {
@@ -49,10 +50,10 @@ class ApiService {
           {
             "model": "gpt-4o-mini",
             "max_completion_tokens": max_completion_tokens,
-            "response_format": promptSetting.returnFormat,
+            "response_format": returnFormat,
             "messages": [
-              {"role": "system", "content": promptSetting.systemPrompt},
-              {"role": "user", "content": promptSetting.userPrompt}
+              {"role": "system", "content": systemPrompt},
+              {"role": "user", "content": userPrompt}
             ]
           },
         ),

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cooking_companion/models/completion_model.dart';
 import 'package:cooking_companion/models/ingredient_model.dart';
 import 'package:cooking_companion/models/nutri_info_model.dart';
-import 'package:cooking_companion/models/prompt_settings_model.dart';
+import 'package:cooking_companion/models/prompt_settings.dart';
 import 'package:cooking_companion/services/api_models.dart';
 
 class FullRecipeModel {
@@ -47,12 +47,13 @@ class FullRecipeModel {
     );
   }
 
-  static Future<FullRecipeModel> createWithAPI({
-    required PromptSettingsModel promptSetting,
-  }) async {
+  static Future<FullRecipeModel> createWithAPI(
+      {required String userPrompt}) async {
     // Call the OpenAI API to get additional data
-    CompletionModel completion =
-        await ApiService.createCompletion(promptSetting: promptSetting);
+    CompletionModel completion = await ApiService.createCompletion(
+        systemPrompt: PromptSettings().recipeCreationSystemPrompt,
+        userPrompt: userPrompt,
+        returnFormat: PromptSettings().recipeCreationJsonSchema);
 
     // Parse the response and initialize the FullRecipeModel
     Map<String, dynamic> jsonResponse = jsonDecode(completion.message);
@@ -77,6 +78,23 @@ class FullRecipeModel {
     );
   }
 
-  
+  Future<void> fillRecipeDetails({required String userPrompt}) async {
+    CompletionModel completion = await ApiService.createCompletion(
+        systemPrompt: PromptSettings().recipeDetailsSystemPrompt,
+        userPrompt: userPrompt,
+        returnFormat: PromptSettings().recipeDetailsJsonSchema);
 
+    // Parse the response and initialize the FullRecipeModel
+    Map<String, dynamic> jsonResponse = jsonDecode(completion.message);
+
+    this.ingredients = List<Ingredient>.from(
+        jsonResponse['ingredients'].map((item) => Ingredient.fromJson(item)));
+
+    this.instructions = List<String>.from(jsonResponse['instructions']);
+
+    this.nutritionalInfo =
+        NutriinfoModel.fromJson(jsonResponse['NutritionalInfo']);
+
+    this.tips = List<String>.from(jsonResponse['tips']);
+  }
 }

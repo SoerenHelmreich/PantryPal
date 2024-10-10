@@ -22,12 +22,16 @@ class _RecipeDetailState extends State<RecipeDetail> {
       ),
       body: Column(
         children: [
-          ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return IngredientCard(
-                    ingredient: Ingredient(name: "Cheese", amount: "200 gr"));
-              }),
+          Expanded(
+            child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return IngredientCard(
+                      ingredient: Ingredient(
+                          name: widget.fullRecipe.ingredients[index].name,
+                          amount: widget.fullRecipe.ingredients[index].amount));
+                }),
+          ),
         ],
 
         //description: json['description'],
