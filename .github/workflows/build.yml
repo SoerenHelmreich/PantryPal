@@ -26,7 +26,7 @@ jobs:
 
     - run: flutter pub get
     - run: flutter config --enable-web
-    - run: flutter build web
+    - run: flutter build web --release --base-href="/PantryPal/"
 
     - name: Deploy to GitHub Pages
       env:
