@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 
 class RecipePreviewCard extends StatelessWidget {
   const RecipePreviewCard(
-      {super.key,
-      required this.recipeSuggestion,
-      required this.gotoRecipeDetails});
+      {super.key, required this.recipe, required this.gotoRecipeDetails});
 
-  final ShortRecipeModel recipeSuggestion;
+  final FullRecipeModel recipe;
   final Function gotoRecipeDetails;
 
   @override
@@ -37,7 +35,7 @@ class RecipePreviewCard extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          recipeSuggestion.title,
+                          recipe.title,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
@@ -58,8 +56,8 @@ class RecipePreviewCard extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 6, horizontal: 12),
-                          child: Text(recipeSuggestion.duration,
-                              style: const TextStyle()),
+                          child:
+                              Text(recipe.duration, style: const TextStyle()),
                         ),
                       )
                     ],
@@ -67,7 +65,7 @@ class RecipePreviewCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: Text(
-                  recipeSuggestion.description,
+                  recipe.description,
                   style: TextStyle(color: Colors.grey.shade700, fontSize: 16),
                 ),
               ),

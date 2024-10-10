@@ -12,10 +12,17 @@ import 'package:cooking_companion/widgets/recipe_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class RecipeOverview extends StatelessWidget {
-  const RecipeOverview({super.key, required this.recipeOverview});
+class RecipeOverview extends StatefulWidget {
+  const RecipeOverview({super.key, required this.UserRecipeRequirements});
 
-  final List<ShortRecipeModel> recipeOverview;
+  final String UserRecipeRequirements;
+
+  @override
+  State<RecipeOverview> createState() => _RecipeOverviewState();
+}
+
+class _RecipeOverviewState extends State<RecipeOverview> {
+  List<FullRecipeModel> recipes = [];
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +34,13 @@ class RecipeOverview extends StatelessWidget {
         crossAxisCount: 1, // Number of columns
         crossAxisSpacing: 10.0,
         mainAxisSpacing: 5.0,
-        itemCount: recipeOverview.length,
+        itemCount: recipes.length,
         itemBuilder: (context, index) {
-          final recipe = recipeOverview[index];
+          final recipe = recipes[index];
           return RecipePreviewCard(
-            recipeSuggestion: recipe,
+            recipe: recipe,
             gotoRecipeDetails: () =>
-                getRecipeDetails(context, recipeOverview[index].description),
+                getRecipeDetails(context, recipes[index].description),
           );
         },
         staggeredTileBuilder: (index) => StaggeredTile.fit(
@@ -146,32 +153,16 @@ Please keep dietary requirements in mind when they are stated in the description
   );
 
   try {
-    CompletionModel response = await ApiService.createCompletion(
-        promptSetting: settings, max_completion_tokens: 16384);
-
-    Map recipe = jsonDecode(response.message);
-    FullRecipeModel recipeDetail = FullRecipeModel(
-      title: recipe['title'],
-      description: recipe['description'],
-      duration: recipe["duration"],
-      ingredients: List.from(elements) Ingredient(name: recipe['ingredient']['name'],amount: recipe['ingredient']['amount']).toList()      
-      instructions: List<String>.from(recipe["instructions"]),
-      nutritionalInfo: NutriinfoModel(
-        calories: recipe["NutritionalInfo"]["calories"],
-        fat: recipe["NutritionalInfo"]["fat"],
-        carbohydrates: recipe["NutritionalInfo"]["carbohydrates"],
-        protein: recipe["NutritionalInfo"]["protein"],
-      ),
-      tips: List<String>.from(recipe["ingredients"]),
-    );
+    FullRecipeModel recipe =
+        await FullRecipeModel.createWithAPI(promptSetting: settings);
 
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => RecipeDetail(fullRecipe: recipeDetail),
+        builder: (context) => RecipeDetail(fullRecipe: recipe),
       ),
     );
-    print(recipeDetail);
-    return recipeDetail;
+
+    return recipe;
   } catch (e) {
     print("Error $e");
     rethrow;

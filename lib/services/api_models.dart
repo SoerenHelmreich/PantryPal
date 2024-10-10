@@ -47,7 +47,7 @@ class ApiService {
         },
         body: jsonEncode(
           {
-            "model": "gpt-4o",
+            "model": "gpt-4o-mini",
             "max_completion_tokens": max_completion_tokens,
             "response_format": promptSetting.returnFormat,
             "messages": [

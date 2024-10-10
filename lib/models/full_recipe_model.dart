@@ -48,9 +48,6 @@ class FullRecipeModel {
   }
 
   static Future<FullRecipeModel> createWithAPI({
-    required String title,
-    required String description,
-    required String duration,
     required PromptSettingsModel promptSetting,
   }) async {
     // Call the OpenAI API to get additional data
@@ -61,9 +58,9 @@ class FullRecipeModel {
     Map<String, dynamic> jsonResponse = jsonDecode(completion.message);
 
     return FullRecipeModel(
-      title: title,
-      description: description,
-      duration: duration,
+      title: jsonResponse['title'] ?? "Title",
+      description: jsonResponse['description'] ?? "Description",
+      duration: jsonResponse['duration'] ?? "0 Minutes",
       ingredients: jsonResponse['ingredients'] != null
           ? List<Ingredient>.from(jsonResponse['ingredients']
               .map((item) => Ingredient.fromJson(item)))
@@ -79,4 +76,7 @@ class FullRecipeModel {
           : [],
     );
   }
+
+  
+
 }
