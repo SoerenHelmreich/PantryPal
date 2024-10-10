@@ -12,7 +12,6 @@ migrate_working_dir/
 
 #Security
 .env
-env.g.dart
 
 # IntelliJ related
 *.iml
