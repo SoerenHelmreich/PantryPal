@@ -8,6 +8,9 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 
 console.log('Hello from Functions!')
 
+const openai_api_key = Deno.env.get("OPENAI_API_KEY") || "";
+console.log(openai_api_key);
+
 export const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
