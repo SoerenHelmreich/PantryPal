@@ -1,6 +1,6 @@
 import 'package:cooking_companion/models/full_recipe_model.dart';
 import 'package:cooking_companion/pages/recipe_detail.dart';
-
+import 'package:supabase_flutter/supabase_flutter.dart'; // Import the supabase_flutter package
 import 'package:cooking_companion/widgets/recipe_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -18,6 +18,7 @@ class _PromptPageState extends State<PromptPage> {
 
   List<FullRecipeModel> recipes = [];
   bool isLoading = false;
+  final supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +97,12 @@ class _PromptPageState extends State<PromptPage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        final res = await supabase.functions
+            .invoke("openai", method: HttpMethod.get, body: {"name": "Peter"});
+        final data = res.data;
+        print(data);
+      }),
     );
   }
 }
