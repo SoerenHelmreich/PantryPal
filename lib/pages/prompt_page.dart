@@ -23,7 +23,7 @@ class _PromptPageState extends State<PromptPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pantry Pal"),
+        title: const Text("Pantry Pal"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -35,15 +35,15 @@ class _PromptPageState extends State<PromptPage> {
               controller: InputController,
               autocorrect: true,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                icon: Icon(Icons.local_grocery_store_outlined),
+                border: const OutlineInputBorder(),
+                icon: const Icon(Icons.local_grocery_store_outlined),
                 hintText: "What do you have in your pantry?",
                 hintStyle: TextStyle(
                   color: Colors.grey.shade500,
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             //When function is running, show LoadingSpinner instead of button
             Center(
               child: FloatingActionButton.extended(
@@ -62,6 +62,7 @@ class _PromptPageState extends State<PromptPage> {
                       recipes;
                     });
                   }
+                  FocusManager.instance.primaryFocus?.unfocus();
                 },
                 label: const Text("Generate Recipes"),
                 icon: const Icon(Icons.auto_awesome),

@@ -60,10 +60,26 @@ class RecipePreviewCard extends StatelessWidget {
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                child: Text(
-                  recipe.description,
-                  style: TextStyle(color: Colors.grey.shade700, fontSize: 16),
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        recipe.description,
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 24,
+                    ),
+                    IconButton.filledTonal(
+                        onPressed: () => gotoRecipeDetails(),
+                        icon: Icon(Icons.arrow_right_outlined))
+                  ],
                 ),
               ),
             ],

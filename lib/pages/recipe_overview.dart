@@ -1,5 +1,4 @@
 import 'package:cooking_companion/models/full_recipe_model.dart';
-import 'package:cooking_companion/pages/recipe_detail.dart';
 import 'package:cooking_companion/widgets/recipe_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
