@@ -1,4 +1,3 @@
-import 'package:cooking_companion/env/env.dart';
 import 'package:cooking_companion/pages/prompt_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,12 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Pantry Pal',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
           useMaterial3: true,
         ),
-        home: PromptPage());
+        home: const PromptPage());
   }
 }

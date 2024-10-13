@@ -8,7 +8,7 @@ class IngredientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
@@ -19,14 +19,17 @@ class IngredientCard extends StatelessWidget {
               Flexible(
                 child: Text(
                   ingredient.name,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                   overflow: TextOverflow.visible,
                   softWrap: true,
                 ),
               ),
+              const SizedBox(
+                width: 10,
+              ),
               Text(
                 ingredient.amount,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ],
           ),
