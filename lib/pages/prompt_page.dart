@@ -97,12 +97,6 @@ class _PromptPageState extends State<PromptPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        final res = await supabase.functions
-            .invoke("openai", method: HttpMethod.get, body: {"name": "Peter"});
-        final data = res.data;
-        print(data);
-      }),
     );
   }
 }

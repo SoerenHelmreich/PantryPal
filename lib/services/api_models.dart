@@ -5,6 +5,7 @@ import 'package:cooking_companion/env/env.dart';
 import 'package:cooking_companion/models/completion_model.dart';
 import 'package:cooking_companion/models/models_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ApiService {
   static Future<List<ModelsModel>> getModels() async {
@@ -40,26 +41,37 @@ class ApiService {
     int max_completion_tokens = 5000,
   }) async {
     try {
-      var response = await http.post(
-        Uri.parse("${Env.BASEURL}/chat/completions"),
-        headers: {
-          'Authorization': 'Bearer ${Env.OPENAI_KEY}',
-          'Content-Type': 'application/json'
-        },
-        body: jsonEncode(
-          {
-            "model": "gpt-4o-mini",
-            "max_completion_tokens": max_completion_tokens,
-            "response_format": returnFormat,
-            "messages": [
-              {"role": "system", "content": systemPrompt},
-              {"role": "user", "content": userPrompt}
-            ]
-          },
-        ),
-      );
+      final supabase = Supabase.instance.client;
 
-      Map jsonResponse = jsonDecode(response.body);
+      final res = await supabase.functions
+          .invoke("openai", method: HttpMethod.get, body: {
+        "systemPrompt": systemPrompt,
+        "userPrompt": userPrompt,
+        "returnFormat": returnFormat
+      });
+      final data = res.data;
+
+      print(data);
+      // await http.post(
+      //   Uri.parse("${Env.BASEURL}/chat/completions"),
+      //   headers: {
+      //     'Authorization': 'Bearer ${Env.OPENAI_KEY}',
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: jsonEncode(
+      //     {
+      //       "model": "gpt-4o-mini",
+      //       "max_completion_tokens": max_completion_tokens,
+      //       "response_format": returnFormat,
+      //       "messages": [
+      //         {"role": "system", "content": systemPrompt},
+      //         {"role": "user", "content": userPrompt}
+      //       ]
+      //     },
+      //   ),
+      // );
+
+      Map jsonResponse = jsonDecode(data);
 
       if (jsonResponse['error'] != null) {
         print(
