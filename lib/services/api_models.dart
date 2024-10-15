@@ -44,7 +44,7 @@ class ApiService {
       final supabase = Supabase.instance.client;
 
       final res = await supabase.functions
-          .invoke("openai", method: HttpMethod.get, body: {
+          .invoke("openai", method: HttpMethod.post, body: {
         "systemPrompt": systemPrompt,
         "userPrompt": userPrompt,
         "returnFormat": returnFormat
@@ -80,11 +80,10 @@ class ApiService {
       }
 
       //Model returned something useful
-      if (jsonResponse['choices'].length > 0) {
-        print(jsonResponse['choices'][0]['message']['content']);
+      if (jsonResponse['title'].length > 0) {
+        print(data);
 
-        return CompletionModel.fromJson(
-            jsonResponse['choices'][0]['message']['content']);
+        return CompletionModel.fromJson(data);
       } else {
         throw HttpException("No completion message from model");
       }
