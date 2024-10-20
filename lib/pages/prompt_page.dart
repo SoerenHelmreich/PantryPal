@@ -1,5 +1,10 @@
 import 'package:cooking_companion/models/full_recipe_model.dart';
+import 'package:cooking_companion/pages/favorite_recipes.dart';
 import 'package:cooking_companion/pages/recipe_detail.dart';
+import 'package:cooking_companion/pages/sign_up_page_email.dart';
+import 'package:cooking_companion/services/recipe_repository.dart';
+import 'package:cooking_companion/utils/constants.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart'; // Import the supabase_flutter package
 import 'package:cooking_companion/widgets/recipe_preview_card.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +19,7 @@ class PromptPage extends StatefulWidget {
 }
 
 class _PromptPageState extends State<PromptPage> {
-  var InputController = TextEditingController();
+  final InputController = TextEditingController();
 
   List<FullRecipeModel> recipes = [];
   bool isLoading = false;
@@ -25,9 +30,30 @@ class _PromptPageState extends State<PromptPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pantry Pal"),
+        actions: [
+          IconButton.filledTonal(
+              onPressed: () async {
+                //Check if user is logged in
+                if (supabase.auth.currentUser != null) {
+                  final List<FullRecipeModel> favoriteRecipes =
+                      await RecipeRepository.readAllRecipes();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FavoriteRecipes(
+                              favoriteRecipes: favoriteRecipes)));
+                }
+                //Bring user to Login / Signup page
+                else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignUpPage()));
+                }
+              },
+              icon: const Icon(Icons.favorite))
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,7 +63,6 @@ class _PromptPageState extends State<PromptPage> {
               autocorrect: true,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                icon: const Icon(Icons.local_grocery_store_outlined),
                 hintText: "What do you have in your pantry?",
                 hintStyle: TextStyle(
                   color: Colors.grey.shade500,
@@ -45,11 +70,16 @@ class _PromptPageState extends State<PromptPage> {
               ),
             ),
             const SizedBox(height: 40),
-            //When function is running, show LoadingSpinner instead of button
             Center(
               child: FloatingActionButton.extended(
                 elevation: 5,
                 onPressed: () async {
+                  recipes = [];
+                  setState(() {
+                    recipes;
+                  });
+
+                  //Create 4 recipe suggestions
                   for (var i = 0; i < 4; i++) {
                     String titles =
                         recipes.map((recipe) => recipe.title).join(", ");
@@ -91,7 +121,7 @@ class _PromptPageState extends State<PromptPage> {
                                     RecipeDetail(fullRecipe: recipe)));
                       });
                 },
-                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
               ),
             ),
           ],
@@ -102,7 +132,7 @@ class _PromptPageState extends State<PromptPage> {
 }
 
 Widget getLoadingSpinner() {
-  return new Container(
+  return Container(
     child: Center(
       child: LoadingAnimationWidget.staggeredDotsWave(
         color: Colors.black,

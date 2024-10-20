@@ -7,4 +7,9 @@ class Ingredient {
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(name: json['name'], amount: json['amount']);
   }
+
+  Map toJson() => {
+        'name': name,
+        'amount': amount,
+      };
 }

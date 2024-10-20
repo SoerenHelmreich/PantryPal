@@ -34,7 +34,7 @@ class _RecipeOverviewState extends State<RecipeOverview> {
                 print("Hello World");
               });
         },
-        staggeredTileBuilder: (index) => StaggeredTile.fit(
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(
           1,
         ),
       ),

@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'package:cooking_companion/utils/constants.dart';
 import 'package:cooking_companion/models/full_recipe_model.dart';
+import 'package:cooking_companion/services/recipe_repository.dart';
+
 import 'package:cooking_companion/models/ingredient_model.dart';
 import 'package:cooking_companion/widgets/ingredient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RecipeDetail extends StatefulWidget {
   const RecipeDetail({super.key, required this.fullRecipe});
@@ -13,11 +18,45 @@ class RecipeDetail extends StatefulWidget {
 }
 
 class _RecipeDetailState extends State<RecipeDetail> {
+  final supabase = Supabase.instance.client;
+  bool recipeSaved = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.fullRecipe.title),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              try {
+                await RecipeRepository.createRecipe(widget.fullRecipe);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Recipe saved successfully!'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                setState(() {
+                  recipeSaved = true;
+                });
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Failed to save recipe: $e'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              }
+              setState(() {
+                recipeSaved = false;
+              });
+            },
+            icon: Icon(
+              recipeSaved ? Icons.favorite : Icons.favorite_outline,
+            ),
+          ),
+        ],
       ),
       body: DynMouseScroll(
         builder: (context, controller, physics) => SingleChildScrollView(

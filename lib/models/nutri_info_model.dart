@@ -19,4 +19,11 @@ class NutriinfoModel {
       protein: json['protein'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "calories": calories,
+        "fat": fat,
+        "carbohydrates": carbohydrates,
+        "protein": protein,
+      };
 }

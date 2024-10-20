@@ -47,6 +47,16 @@ class FullRecipeModel {
     );
   }
 
+  Map toJson() => {
+        'title': title,
+        'description': description,
+        'duration': duration,
+        'ingredients': ingredients,
+        'instructions': instructions,
+        'nutritionalInfo': nutritionalInfo.toJson(),
+        'tips': tips,
+      };
+
   static Future<FullRecipeModel> createWithAPI(
       {required String userPrompt}) async {
     // Call the OpenAI API to get additional data
@@ -87,14 +97,14 @@ class FullRecipeModel {
     // Parse the response and initialize the FullRecipeModel
     Map<String, dynamic> jsonResponse = jsonDecode(completion.message);
 
-    this.ingredients = List<Ingredient>.from(
+    ingredients = List<Ingredient>.from(
         jsonResponse['ingredients'].map((item) => Ingredient.fromJson(item)));
 
-    this.instructions = List<String>.from(jsonResponse['instructions']);
+    instructions = List<String>.from(jsonResponse['instructions']);
 
-    this.nutritionalInfo =
+    nutritionalInfo =
         NutriinfoModel.fromJson(jsonResponse['NutritionalInfo']);
 
-    this.tips = List<String>.from(jsonResponse['tips']);
+    tips = List<String>.from(jsonResponse['tips']);
   }
 }
