@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cooking_companion/models/completion_model.dart';
+import 'package:pantry_pal/models/completion_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ApiService {
@@ -23,7 +23,6 @@ class ApiService {
       final data = res.data;
 
       print(data);
-      
 
       Map jsonResponse = jsonDecode(data);
 

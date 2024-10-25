@@ -1,5 +1,5 @@
-import 'package:cooking_companion/models/full_recipe_model.dart';
-import 'package:cooking_companion/utils/constants.dart';
+import 'package:pantry_pal/models/full_recipe_model.dart';
+import 'package:pantry_pal/utils/constants.dart';
 
 class RecipeRepository {
   //Create

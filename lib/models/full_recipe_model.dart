@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:cooking_companion/models/completion_model.dart';
-import 'package:cooking_companion/models/ingredient_model.dart';
-import 'package:cooking_companion/models/nutri_info_model.dart';
-import 'package:cooking_companion/models/prompt_settings.dart';
-import 'package:cooking_companion/services/api_models.dart';
+import 'package:pantry_pal/models/completion_model.dart';
+import 'package:pantry_pal/models/ingredient_model.dart';
+import 'package:pantry_pal/models/nutri_info_model.dart';
+import 'package:pantry_pal/models/prompt_settings.dart';
+import 'package:pantry_pal/services/api_models.dart';
 
 class FullRecipeModel {
   String title;
@@ -102,8 +102,7 @@ class FullRecipeModel {
 
     instructions = List<String>.from(jsonResponse['instructions']);
 
-    nutritionalInfo =
-        NutriinfoModel.fromJson(jsonResponse['NutritionalInfo']);
+    nutritionalInfo = NutriinfoModel.fromJson(jsonResponse['NutritionalInfo']);
 
     tips = List<String>.from(jsonResponse['tips']);
   }

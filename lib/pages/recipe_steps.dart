@@ -1,4 +1,4 @@
-import 'package:cooking_companion/models/full_recipe_model.dart';
+import 'package:pantry_pal/models/full_recipe_model.dart';
 import 'package:flutter/material.dart';
 
 class RecipeSteps extends StatelessWidget {
@@ -10,6 +10,7 @@ class RecipeSteps extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(fullRecipe.title),
+        scrolledUnderElevation: 0.0,
       ),
       body: Column(
         children: [

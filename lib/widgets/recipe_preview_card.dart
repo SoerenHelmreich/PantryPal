@@ -1,4 +1,4 @@
-import 'package:cooking_companion/models/full_recipe_model.dart';
+import 'package:pantry_pal/models/full_recipe_model.dart';
 import 'package:flutter/material.dart';
 
 class RecipePreviewCard extends StatefulWidget {

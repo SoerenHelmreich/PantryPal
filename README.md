@@ -1,4 +1,4 @@
-# cooking_companion
+# pantry_pal
 
 A new Flutter project.
 

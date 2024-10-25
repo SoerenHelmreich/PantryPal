@@ -1,4 +1,4 @@
-import 'package:cooking_companion/models/ingredient_model.dart';
+import 'package:pantry_pal/models/ingredient_model.dart';
 import 'package:flutter/material.dart';
 
 class IngredientCard extends StatelessWidget {
