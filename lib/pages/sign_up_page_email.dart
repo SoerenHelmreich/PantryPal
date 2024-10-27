@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_pal/utils/constants.dart';
 import 'package:pantry_pal/widgets/centerOnWeb.dart';
+import 'package:simple_animated_button/elevated_layer_button.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -15,13 +16,35 @@ class SignUpPage extends StatelessWidget {
     return ConstrainedContainer(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Create Account"),
+          leading: Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: ElevatedLayerButton(
+              onClick: () => Navigator.of(context).pop(),
+              buttonHeight: 50,
+              buttonWidth: 50,
+              animationDuration: const Duration(milliseconds: 200),
+              animationCurve: Curves.ease,
+              topDecoration: BoxDecoration(
+                  color: Colors.amber,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(60)),
+              topLayerChild: const Icon(Icons.arrow_back),
+              baseDecoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(60)),
+            ),
+          ),
+          forceMaterialTransparency: true,
           scrolledUnderElevation: 0.0,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              Text("Create an account", style: monoStyleTitle),
+              SizedBox(height: 48),
+
               //Email
               TextField(
                 controller: emailInputController,
@@ -30,12 +53,17 @@ class SignUpPage extends StatelessWidget {
                 enableSuggestions: false,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
+                  labelText: "Email",
                   hintText: "Provide your email",
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(width: 4.0, color: Colors.black)),
                   hintStyle: TextStyle(
                     color: Colors.grey.shade500,
                   ),
                 ),
               ),
+              const SizedBox(height: 24),
+
               //Password
               TextField(
                 controller: passwordInputController,
@@ -44,23 +72,41 @@ class SignUpPage extends StatelessWidget {
                 autocorrect: false,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  hintText: "Password",
+                  labelText: "Password",
+                  hintText: "Create a strong password",
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(width: 4.0, color: Colors.black)),
                   hintStyle: TextStyle(
                     color: Colors.grey.shade500,
                   ),
                 ),
               ),
               SizedBox(height: 40),
-              FloatingActionButton.extended(
-                onPressed: () {
+              ElevatedLayerButton(
+                onClick: () {
                   SignUp(emailInputController.text,
                       passwordInputController.text, context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => redirectPage));
                 },
-                label: Text("Next"),
-                icon: Icon(Icons.navigate_next),
-              )
+                buttonHeight: 60,
+                buttonWidth: 270,
+                animationDuration: const Duration(milliseconds: 200),
+                animationCurve: Curves.ease,
+                topDecoration: BoxDecoration(
+                    color: Colors.amber,
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(20)),
+                topLayerChild: Text(
+                  "Sign in",
+                  style: monoStyleButtonBig,
+                ),
+                baseDecoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ],
           ),
         ),

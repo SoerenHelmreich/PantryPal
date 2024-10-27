@@ -10,6 +10,7 @@ class RecipeSteps extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(fullRecipe.title),
+        forceMaterialTransparency: true,
         scrolledUnderElevation: 0.0,
       ),
       body: Column(

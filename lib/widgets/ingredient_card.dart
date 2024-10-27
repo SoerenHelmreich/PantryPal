@@ -9,7 +9,14 @@ class IngredientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      child: Card(
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).canvasColor,
+            border: Border.all(width: 1, color: Colors.black),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: const [
+              BoxShadow(color: Colors.black, offset: Offset(4, 4))
+            ]),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           child: Row(
@@ -27,14 +34,17 @@ class IngredientCard extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text(
-                ingredient.amount,
-                style: const TextStyle(fontSize: 20),
+              Flexible(
+                child: Text(
+                  ingredient.amount,
+                  style: const TextStyle(fontSize: 20),
+                ),
               ),
             ],
           ),
         ),
       ),
+      
     );
   }
 }

@@ -22,6 +22,7 @@ class _RecipeOverviewState extends State<RecipeOverview> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Recipe Overview"),
+          forceMaterialTransparency: true,
           scrolledUnderElevation: 0.0,
         ),
         body: StaggeredGridView.countBuilder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Supabase client
 final supabase = Supabase.instance.client;
@@ -62,6 +63,21 @@ final appTheme = ThemeData.light().copyWith(
     ),
   ),
 );
+
+TextStyle monoStyleButtonBig = GoogleFonts.firaMono(
+    color: Color(0xff202020), fontSize: 18, fontWeight: FontWeight.w700);
+    
+TextStyle monoStyleButtonSmall = GoogleFonts.firaMono(
+    color: Color(0xff202020), fontSize: 14, fontWeight: FontWeight.w700);
+
+TextStyle monoStyleTitle = GoogleFonts.firaMono(
+    color: Color(0xff202020), fontSize: 26, fontWeight: FontWeight.w500);
+
+TextStyle monoStyleSecondary =
+    GoogleFonts.firaMono(color: Color(0xff202020), fontSize: 18);
+
+
+TextStyle nutrientsTableText = TextStyle(fontSize: 16);
 
 /// Set of extension methods to easily display a snackbar
 extension ShowSnackBar on BuildContext {

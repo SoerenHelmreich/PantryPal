@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:pantry_pal/pages/recipe_step.dart';
 import 'package:pantry_pal/pages/sign_up_page_email.dart';
 import 'package:pantry_pal/utils/constants.dart';
 import 'package:pantry_pal/models/full_recipe_model.dart';
@@ -8,6 +9,8 @@ import 'package:pantry_pal/models/ingredient_model.dart';
 import 'package:pantry_pal/widgets/centerOnWeb.dart';
 import 'package:pantry_pal/widgets/ingredient_card.dart';
 import 'package:flutter/material.dart';
+import 'package:pantry_pal/widgets/nutrition_card.dart';
+import 'package:simple_animated_button/elevated_layer_button.dart';
 import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -41,44 +44,46 @@ class _RecipeDetailState extends State<RecipeDetail> {
     return ConstrainedContainer(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.fullRecipe.title),
+          leading: Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: ElevatedLayerButton(
+              onClick: () => Navigator.of(context).pop(),
+              buttonHeight: 50,
+              buttonWidth: 50,
+              animationDuration: const Duration(milliseconds: 200),
+              animationCurve: Curves.ease,
+              topDecoration: BoxDecoration(
+                  color: Colors.amber,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(60)),
+              topLayerChild: const Icon(Icons.arrow_back),
+              baseDecoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(60)),
+            ),
+          ),
           scrolledUnderElevation: 0.0,
+          forceMaterialTransparency: true,
           actions: [
-            IconButton(
-              onPressed: () async {
-                if (supabase.auth.currentUser != null) {
-                  await RecipeRepository.createRecipe(widget.fullRecipe);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Recipe saved successfully!'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                  setState(() {
-                    recipeSaved = true;
-                  });
-                } else {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SignUpPage(
-                              redirectPage: RecipeDetail(
-                                  fullRecipe: widget.fullRecipe))));
-                }
-                try {} catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Failed to save recipe: $e'),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                }
-                setState(() {
-                  recipeSaved = false;
-                });
-              },
-              icon: Icon(
-                recipeSaved ? Icons.favorite : Icons.favorite_outline,
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: ElevatedLayerButton(
+                onClick: () => saveToFavorites(),
+                buttonHeight: 50,
+                buttonWidth: 190,
+                animationDuration: const Duration(milliseconds: 200),
+                animationCurve: Curves.ease,
+                topDecoration: BoxDecoration(
+                    color: Colors.amber,
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(60)),
+                topLayerChild:
+                    Text("Save to favorites", style: monoStyleButtonSmall),
+                baseDecoration: BoxDecoration(
+                    color: Colors.black,
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(60)),
               ),
             ),
           ],
@@ -90,90 +95,117 @@ class _RecipeDetailState extends State<RecipeDetail> {
           builder: (context, controller, physics) => SingleChildScrollView(
             controller: controller,
             physics: physics,
-
-            //controller: controller,
-            // physics: physics,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    widget.fullRecipe.description,
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                ),
-                Center(
-                  child: Card(
-                    margin: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Nutritional Information',
-                            style: TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                              'Calories: ${widget.fullRecipe.nutritionalInfo.calories}'),
-                          Text(
-                              'Fat: ${widget.fullRecipe.nutritionalInfo.fat}g'),
-                          Text(
-                              'Carbohydrates: ${widget.fullRecipe.nutritionalInfo.carbohydrates}g'),
-                          Text(
-                              'Protein: ${widget.fullRecipe.nutritionalInfo.protein}g'),
-                        ],
-                      ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.fullRecipe.title, style: monoStyleTitle),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 32),
+                    child: Text(
+                      widget.fullRecipe.description,
+                      style: const TextStyle(fontSize: 16.0),
                     ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Ingredients',
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: NutritionCard(
+                          nutrients: widget.fullRecipe.nutritionalInfo),
+                    ),
                   ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.fullRecipe.ingredients.length,
-                  itemBuilder: (context, index) {
-                    final ingredient = widget.fullRecipe.ingredients[index];
-                    return IngredientCard(
-                        ingredient: Ingredient(
-                            name: ingredient.name, amount: ingredient.amount));
-                  },
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Instructions',
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget.fullRecipe.ingredients.length,
+                    itemBuilder: (context, index) {
+                      final ingredient = widget.fullRecipe.ingredients[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        child: IngredientCard(
+                            ingredient: Ingredient(
+                                name: ingredient.name,
+                                amount: ingredient.amount)),
+                      );
+                    },
                   ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.fullRecipe.instructions.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        child: Text('${index + 1}'),
-                      ),
-                      title: Text(widget.fullRecipe.instructions[index]),
-                    );
-                  },
-                ),
-              ],
+                  SizedBox(height: 80)
+                ],
+              ),
             ),
+          ),
+        ),
+        floatingActionButton: ElevatedLayerButton(
+          onClick: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeStep(
+                fullRecipe: widget.fullRecipe,
+              ),
+            ),
+          ),
+          buttonHeight: 70,
+          buttonWidth: 240,
+          animationDuration: const Duration(milliseconds: 200),
+          animationCurve: Curves.ease,
+          topDecoration: BoxDecoration(
+              color: Colors.amber,
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(20)),
+          topLayerChild:
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Icon(Icons.local_dining),
+            const SizedBox(width: 10),
+            Text(
+              "Start cooking",
+              style: monoStyleButtonBig,
+            ),
+          ]),
+          baseDecoration: BoxDecoration(
+            color: Colors.black,
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
       ),
     );
+  }
+
+  void saveToFavorites() async {
+    if (supabase.auth.currentUser != null) {
+      await RecipeRepository.createRecipe(widget.fullRecipe);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Recipe saved successfully!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      setState(() {
+        recipeSaved = true;
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignUpPage(
+            redirectPage: RecipeDetail(fullRecipe: widget.fullRecipe),
+          ),
+        ),
+      );
+    }
+    try {} catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to save recipe: $e'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+    setState(() {
+      recipeSaved = false;
+    });
   }
 }
