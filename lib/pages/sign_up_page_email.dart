@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_pal/pages/favorite_recipes.dart';
+import 'package:pantry_pal/pages/recipe_detail.dart';
 import 'package:pantry_pal/utils/constants.dart';
 import 'package:pantry_pal/widgets/centerOnWeb.dart';
 import 'package:simple_animated_button/elevated_layer_button.dart';
@@ -86,8 +88,12 @@ class SignUpPage extends StatelessWidget {
                 onClick: () {
                   SignUp(emailInputController.text,
                       passwordInputController.text, context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => redirectPage));
+                  if (redirectPage == RecipeDetail) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => redirectPage));
+                  } else {
+                    Navigator.pop(context);
+                  }
                 },
                 buttonHeight: 60,
                 buttonWidth: 270,
