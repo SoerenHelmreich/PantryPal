@@ -1,17 +1,8 @@
 # Pantry Pal
 Sören Helmreich, 06.11.2024
 
-<p align="center">
-    <img src="assets/Icon.png" alt="Icon of Pantry Pal" height="50%">
-</p>
 
-<p align="center">
-    <img src="https://storage.googleapis.com/cms-storage-bucket/916809aa4c8f73ad70d2.svg" alt="Pantry Pal Logo" height="20%">
-</p>
 
-<p align="center">
-    <img src="assets/supabase-logo-wordmark--light.png" alt="Pantry Pal Logo" height="20%">
-</p>
 
 
 Everyone knows the problem. You’re staring into the empty fridge, wondering what you can cook with all the leftover ingredients you have.
@@ -43,6 +34,20 @@ The App is built with an agile approach. Base requirements have been gathered in
 - Backend Systems finished
 - User Interface finished
 - Deployment finished
+
+## Technologies
+
+<p align="center">
+    <img src="https://storage.googleapis.com/cms-storage-bucket/916809aa4c8f73ad70d2.svg" alt="Flutter Logo" height="60">
+</p>
+
+<p align="center">
+    <img src="assets/supabase-logo-wordmark--dark.png" alt="Supabase Logo" height="50">
+</p>
+
+<p align="center">
+    <img src="assets/openai-white-lockup.png" alt="Supabase Logo" height="50">
+</p>
 
 The project is built using [Flutter](https://flutter.dev/), an UI Framework for cross platform applications from a single codebase. Instead of developing a backend completely by myself, the project uses the Backend as a service (BaaS) Platform [Supabase](https://supabase.com/docs/guides/database/overview). The Software is available as a Web-App and an Android App. The Web-App is hosted on GitHub Pages.
 
