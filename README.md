@@ -1,6 +1,22 @@
 # Pantry Pal
 Sören Helmreich, 06.11.2024
 
+## Overview
+- [Introduction](#introduction)
+- [Target Audiences](##target-audiences)
+  - [Jakob, the student](###jakob-the-student)
+  - [Frida, the mother](###frida-the-mother)
+  - [Mikkel, the professional chef](###mikkel-the-professional-chef)
+- [Technologies](#technologies)
+- [Metrics](#metrics)
+  - [Frontend usability](#frontend-usability)
+  - [Recipe Quality](#recipe-quality)
+- [Data](#data)
+- [Modeling](#modeling)
+- [Deployment](#deployment)
+- [Use of Artificial Intelligence](#use-of-artificial-intelligence)
+- [References](#references)
+
 <p align="center">
     <img src="assets/Icon.png" alt="Supabase Logo" height="200">
 </p>
@@ -11,20 +27,20 @@ Pantry Pal solves this problem conveniently for you. You enter all the ingredien
 
 Before Pantry Pal existed, you had to look up recipes online, go through countless food blogs with bloated descriptions, just to end up ordering takeout again.
 
-
 Traditionally, an App like this would have to access a large database or recipes. This project highlights the unique approach to this common everyday problem by using large language models to generate data. This way the recipes are highly customized to the user’s needs, whether dietary, nutritional or by limiting available ingredients.
 
+## Target Audience
 Pantry Pal has three unique target audiences with their own needs. The following personalities undermine their differences:
 
-**Jakob, the student**
+### **Jakob, the student**
 
 The student likes to cook occasionally. When he comes back from class, he often finds himself hungry, but not having many fresh ingredients at home to cook with. Ordering takeout isn’t an option since he’s always low on budget. So he opens Pantry Pal on his iPhone to find quick recipes that he can make with what he has left. Since he’s currently going to the gym regularly, he wants meals with a high protein count. The app recommends a small selection of recipes, that Jakob likes. The detailed recipe makes it easy to cook a fresh and delicious meal, and with the added nutritional information, he can quickly know how much he still has to eat to meet his dietary goals. Jakob is really satisfied with the recipe, so he saves it to his account to make it another time.
 
-**Frida, the mother**
+### **Frida, the mother**
 
 When Frida comes home from work at midday, she only has half an hour before the kids come back from school. She wants to cook something fresh for them, but they are quite picky eaters. She has countless cooking books in the kitchen, but barely any of the recipes make everyone at the table happy. So grabs her Android phone to open Pantry Pal and types in what the fridge offers, and the different tastes of the kids. She’s quickly satisfied with one of the recommended recipes. With the detailed steps it’s easy to follow the recipe, even after coming home from exhausting work. And with the handy information on cooking time, Frida knows lunch will be on the table by the time the kids get home, and everyone will enjoy the meal together.
 
-**Mikkel, the professional chef**
+### **Mikkel, the professional chef**
 
 Mikkel has been a chef for many years now. He has his own restaurant focused on creating traditional Norwegian dishes, but incorporating elements from international cuisine into his creations. He likes to try out new combinations to find recipes that pleasantly surprise guests with meals they have never tried. When he’s out of creative ideas, he likes to open the Pantry Pal Web-App for some inspiration. He enters ingredients he thinks might fit together, and the app recommends fitting recipes. Mikkel is surprised by the creative combinations the app comes up with, and immediately goes to try out one of the recipes. Maybe one of them will be his next signature dish. He saves the other recommended recipes in his profile for later, maybe they’re also worth trying out.
 
