@@ -21,6 +21,7 @@ Sören Helmreich, 06.11.2024
     <img src="assets/Icon.png" alt="Supabase Logo" height="200">
 </p>
 
+## Introduction
 Everyone knows the problem. You’re staring into the empty fridge, wondering what you can cook with all the leftover ingredients you have.
 
 Pantry Pal solves this problem conveniently for you. You enter all the ingredients you have available, and the App produces a list of delicious recipes you can make with minimal effort.
