@@ -3,10 +3,10 @@ Sören Helmreich, 06.11.2024
 
 ## Overview
 - [Introduction](#introduction)
-- [Target Audiences](##target-audiences)
-  - [Jakob, the student](###jakob-the-student)
-  - [Frida, the mother](###frida-the-mother)
-  - [Mikkel, the professional chef](###mikkel-the-professional-chef)
+- [Target Audiences](#target-audience)
+  - [Jakob, the student](#jakob-the-student)
+  - [Frida, the mother](#frida-the-mother)
+  - [Mikkel, the professional chef](#mikkel-the-professional-chef)
 - [Technologies](#technologies)
 - [Metrics](#metrics)
   - [Frontend usability](#frontend-usability)
@@ -77,7 +77,7 @@ Once the user is logged in, they can save recipes to a [cloud Postgres database]
 
 ## **METRICS**
 
-**Frontend usability**
+### **Frontend usability**
 
 To evaluate the business impact of Pantry Pal, we looked at how fast users can perform tasks in the app.
 
@@ -93,7 +93,7 @@ It’s important to get these times as low as possible as this improves user sat
 
 Most users were able to complete the tasks quite quickly. We therefor conclude that the frontend is very intuitive and easy to navigate.
 
-**Recipe Quality**
+### **Recipe Quality**
 
 Another highly important aspect is the quality and accuracy of the recipes. Large Language Models are known to suffer from hallucination (response containing false or misleading information). In this case, this could, among other things, mean unfitting ingredients, unsuitable amounts or wrong ordered recipe steps. All the three user groups described in the scope expect a recipe to be accurate and easy to follow. Wrong information will decrease the satisfaction with the app.
 
@@ -103,15 +103,15 @@ Recipes evaluated:
 
 1. **Coconut Chickpea Curry**
 
-Prompt: Coconut milk, chikpeas, onion, garlic, rice, curry
+    Prompt: Coconut milk, chikpeas, onion, garlic, rice, curry
 
-1. **Broccoli and Pea Stir-Fry Rice**
+2. **Broccoli and Pea Stir-Fry Rice**
+    
+    Prompt: Rice, broccoli, peas, peper
 
-Prompt: Rice, broccoli, peas, peper
+3. **Cheesy Aubergine Baguette Bake**
 
-1. **Cheesy Aubergine Baguette Bake**
-
-Prompt: Cheese, Aubergine, Baguette, Tomato sauce
+    Prompt: Cheese, Aubergine, Baguette, Tomato sauce
 
 | Recipe | Overall Quality | Cooking outcome |
 | --- | --- | --- |
@@ -121,7 +121,7 @@ Prompt: Cheese, Aubergine, Baguette, Tomato sauce
 
 Most of the recipes turned out well. The user should not be a complete beginner, as some recipes require cooking techniques that are not further explained. The Nutritional Information was not perfectly accurate due do a number of possible factors.
 
-**DATA**
+# **DATA**
 
 To generate the data (recipes), the app uses a Large Language Model from OpenAI. By default, the [gpt-4o-mini](https://platform.openai.com/docs/models/gpt-4o-mini) is used because it’s cheap, fast and fairly accurate.
 
