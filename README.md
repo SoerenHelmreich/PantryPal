@@ -1,9 +1,9 @@
 # Pantry Pal
 Sören Helmreich, 06.11.2024
 
-
-
-
+<p align="center">
+    <img src="assets/Icon.png" alt="Supabase Logo" height="200">
+</p>
 
 Everyone knows the problem. You’re staring into the empty fridge, wondering what you can cook with all the leftover ingredients you have.
 
